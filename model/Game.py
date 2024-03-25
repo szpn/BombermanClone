@@ -8,4 +8,4 @@ class Game:
 
     def addBombers(self, count):
         for i in range(count):
-            self.bombers.append(Bomber([30, 30], 3))
+            self.bombers.append(Bomber([0, 0]))
