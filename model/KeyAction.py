@@ -11,12 +11,11 @@ class KeyAction:
         # nie ma switch case w pythonie XDDDDD jest tylko match ale to dla 3.10 wiec nie bedziemy wymuszać
         if key[pygame.K_a]:
             self.gameTohandle.bomberman1.move(Directions.LEFT)
-        elif key[pygame.K_d]:
+        if key[pygame.K_d]:
             self.gameTohandle.bomberman1.move(Directions.RIGHT)
-        elif key[pygame.K_w]:
+        if key[pygame.K_w]:
             self.gameTohandle.bomberman1.move(Directions.UP)
-        elif key[pygame.K_s]:
+        if key[pygame.K_s]:
             self.gameTohandle.bomberman1.move(Directions.DOWN)
-        else:
-            print(key)
-            #print("zly klawisz stary")
+        if key[pygame.K_ESCAPE]:
+            self.gameTohandle.run = False
