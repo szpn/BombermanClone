@@ -1,5 +1,7 @@
-4
-S T T S
-T W T T
-T T W T
-S T T S
+6
+W W W W W W
+W S T T S W
+W T W T T W
+W T T W T W
+W S T T S W
+W W W W W W
