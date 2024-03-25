@@ -1,0 +1,9 @@
+8
+S T T T T T T T
+T W T T T T W T
+T T T T T T T T
+T T T W W T T T
+T T T W W T T T
+T T T T T T T T
+T W T T T T W T
+T T T T T T T S

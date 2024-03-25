@@ -10,12 +10,12 @@ class KeyAction:
     def handle(self, key):
         # nie ma switch case w pythonie XDDDDD jest tylko match ale to dla 3.10 wiec nie bedziemy wymuszać
         if key[pygame.K_a]:
-            self.gameTohandle.bomberman1.move(Directions.LEFT)
-        if key[pygame.K_d]:
-            self.gameTohandle.bomberman1.move(Directions.RIGHT)
-        if key[pygame.K_w]:
-            self.gameTohandle.bomberman1.move(Directions.UP)
-        if key[pygame.K_s]:
-            self.gameTohandle.bomberman1.move(Directions.DOWN)
+            self.gameTohandle.bombers[0].move(Directions.LEFT)
+        elif key[pygame.K_d]:
+            self.gameTohandle.bombers[0].move(Directions.RIGHT)
+        elif key[pygame.K_w]:
+            self.gameTohandle.bombers[0].move(Directions.UP)
+        elif key[pygame.K_s]:
+            self.gameTohandle.bombers[0].move(Directions.DOWN)
         if key[pygame.K_ESCAPE]:
             self.gameTohandle.run = False
