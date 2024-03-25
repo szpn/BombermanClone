@@ -1,9 +1,11 @@
-8
-S T T T T T T T
-T W T T T T W T
-T T T T T T T T
-T T T W W T T T
-T T T W W T T T
-T T T T T T T T
-T W T T T T W T
-T T T T T T T S
+10
+W W W W W W W W W W
+W S T T T T T T T W
+W T W T T T T W T W
+W T T T T T T T T W
+W T T T W W T T T W
+W T T T W W T T T W
+W T T T T T T T T W
+W T W T T T T W T W
+W T T T T T T T S W
+W W W W W W W W W W
