@@ -21,13 +21,17 @@ class Gameloop:
 
     def start(self):
         clock = pygame.time.Clock()
+        ticks = 0
         while self.run:
+            ticks+=1
             self.render.drawGame()
 
-            self.keyHandler.handle(pygame.key.get_pressed())
+            if ticks % 20 == 0:
+                self.keyHandler.handle(pygame.key.get_pressed())
+
             self.handleEvents()
             pygame.display.update()
-            clock.tick(15)
+            clock.tick(60)
         pygame.quit()
 
     def handleEvents(self):

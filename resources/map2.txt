@@ -5,7 +5,7 @@ W T W T T T T W T W
 W T T T T T T T T W
 W T T T W W T T T W
 W T T T W W T T T W
-W T T T T T T T T W
-W T W T T T T W T W
-W T T T T T T T S W
+W T T T D T T T T W
+W T W T D T T W T W
+W T T T D T T T S W
 W W W W W W W W W W
