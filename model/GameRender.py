@@ -1,11 +1,9 @@
 import pygame
 
-class Render:
-    def __init__(self, game, windowSize):
+class GameRender:
+    def __init__(self, game, screen):
         self.game = game
-        self.SCREEN_WIDTH = windowSize
-        self.SCREEN_HEIGHT = windowSize
-        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_WIDTH))
+        self.screen = screen
 
     def drawGame(self):
         self.cleanWindow()

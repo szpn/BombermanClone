@@ -3,19 +3,19 @@ import pygame
 from model.Bomber import Bomber
 from model.Game import Game
 from model.KeyAction import KeyAction
-from model.Render import Render
+from model.GameRender import GameRender
 from model.map.Map import Map
 from util.MapLoader import MapLoader
 
 
 class Gameloop:
-    def __init__(self, windowSize):
+    def __init__(self, screen):
         self.run = True
 
         self.map = MapLoader.fromFile("./resources/map2.txt")
         self.game = Game(self.map)
         self.keyHandler = KeyAction(self.game, True)
-        self.render = Render(self.game, windowSize)
+        self.render = GameRender(self.game, screen)
 
         self.game.addBombers(1)
 
