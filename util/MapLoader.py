@@ -1,6 +1,7 @@
 from model.map.Map import Map
 from model.map.MapTile import MapTile
 from model.map.Wall import Wall
+from model.map.WallDestructable import WallDestructable
 
 
 class MapLoader():
@@ -24,6 +25,8 @@ class MapLoader():
                     map[i][j] = MapTile(i, j)
                 elif tile == 'W':
                     map[i][j] = Wall(i,j)
+                elif tile == 'D':
+                    map[i][j] = WallDestructable(i, j)
                 else:
                     raise ValueError(f"Invalid tile type: {tile} at position ({i}, {j})")
 
