@@ -20,6 +20,7 @@ class GameLoop:
     def tick(self):
         if self.game is None:
             raise RuntimeError("GameLoop tried to process a non-exisitng game!")
+        self.game.tick()
 
         self.render.drawGame()
         self.keyHandler.handle(pygame.key.get_pressed())
