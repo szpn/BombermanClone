@@ -7,6 +7,7 @@ class Game:
         self.bombers = []
         self.bomb = []
 
+
     def addBombers(self, count):
         for i in range(count):
             self.bombers.append(Bomber([0, 0]))
