@@ -1,6 +1,4 @@
 import pygame
-from GameLoop import GameLoop
-from MenuLoop import MenuLoop
 from MainLoop import MainLoop
 
 def main(windowSize=800):
