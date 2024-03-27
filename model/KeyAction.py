@@ -7,6 +7,10 @@ class KeyAction:
         self.isLocal = isLocal
         self.gameTohandle = gameTohandle
 
+
+    def setGameToHandle(self, game):
+        self.gameTohandle = game
+
     def handle(self, key):
         # nie ma switch case w pythonie XDDDDD jest tylko match ale to dla 3.10 wiec nie bedziemy wymuszać
         if key[pygame.K_a]:

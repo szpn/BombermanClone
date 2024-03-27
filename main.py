@@ -1,16 +1,15 @@
 import pygame
-from Gameloop import Gameloop
-from Menuloop import Menuloop
-
+from GameLoop import GameLoop
+from MenuLoop import MenuLoop
+from MainLoop import MainLoop
 
 def main(windowSize=800):
     print('start')
     pygame.init()
     screen = pygame.display.set_mode((windowSize, windowSize))
-    #gameloop = Gameloop(screen)
-    menuloop = Menuloop(screen)
-    menuloop.start()
-    #gameloop.start()
+    mainloop = MainLoop(screen)
+    mainloop.run()
+
 
 if __name__ == '__main__':
     main()
