@@ -24,4 +24,3 @@ class GameLoop:
 
         self.render.drawGame()
         self.keyHandler.handle(pygame.key.get_pressed())
-
