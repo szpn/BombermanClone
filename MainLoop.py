@@ -3,6 +3,7 @@ from GameLoop import GameLoop
 from MenuLoop import MenuLoop
 from model.game.GameCreator import GameCreator
 
+
 STATE_MENU = 0
 STATE_GAME = 1
 FPS = 60

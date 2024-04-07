@@ -15,7 +15,7 @@ class Bomber:
         self.bombLimit = 1
         self.bombCounter = 0
         self.bombPower = 1
-    def move(self,direction,board):
+    def move(self,direction,board,firesCord):
         #TODO tu trzeba będize jakiś validator dowalić ale kolizji póki co nie ogarniam i no bez mapy też cięzko
         dir_x = direction.value[0]
         dir_y = direction.value[1]
@@ -24,9 +24,16 @@ class Bomber:
             self.x += dir_x
             self.y += dir_y
             self.rect.move_ip(dir_x*64, dir_y*64)
+            if firesCord[self.x][self.y] > 0:
+                self.bomberDmg()
         return '@'
 
-    def printHi(self):
-        print("im working")
+    def bomberDmg(self):
+        print("print aua to bolalo")
+        self.lives-=1
+    def whoImString(self):
+        return "Bomberman"
+
+
 
         
