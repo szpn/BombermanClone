@@ -1,4 +1,6 @@
 from model.Bomber import Bomber
+from model.powerup.PowerUpCreator import PowerUpCreator
+from util.RandomEmptyPosition import RandomEmptyPosition
 
 
 class Game:
@@ -6,11 +8,9 @@ class Game:
         self.map = map
         self.bombers = []
         self.bomb = []
+        self.powerups = []
+        self.spawnPowerUp()
 
-
-    def addBombers(self, count):
-        for i in range(count):
-            self.bombers.append(Bomber([0, 0]))
 
 
     def tick(self):
@@ -30,8 +30,15 @@ class Game:
         bomber.move(direction)
         #TODO: finish this
 
+
+    def addBombers(self, count):
+        for i in range(count):
+            self.bombers.append(Bomber([0, 0]))
+
     def placeBomb(self):
         pass
 
     def spawnPowerUp(self):
-        pass
+        powerUpPosition = RandomEmptyPosition.generate(self)
+        powerUp = PowerUpCreator.create_random_powerup(powerUpPosition)
+        self.powerups.append(powerUp)

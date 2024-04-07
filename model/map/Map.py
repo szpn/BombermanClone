@@ -8,6 +8,9 @@ class Map:
         self.spawnPoints = mapData['spawnPoints']
 
 
+    def getObjectAt(self, x, y):
+        return self.map[x][y]
+
     def drawMap(self, screen):
         for i in range(self.size):
             for j in range(self.size):
