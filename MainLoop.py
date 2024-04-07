@@ -21,7 +21,6 @@ class MainLoop:
         clock = pygame.time.Clock()
         while self.isRunning:
             time_delta = clock.tick(FPS)/1000.0
-
             if self.state == STATE_MENU:
                 self.menuloop.tick()
                 self.menuloop.manager.update(time_delta)

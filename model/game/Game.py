@@ -33,8 +33,10 @@ class Game:
 
     def addBombers(self, count):
         for i in range(count):
-            self.bombers.append(Bomber([0, 0]))
-
+            if i ==0:
+                self.bombers.append(Bomber([0, 0]))
+            elif i == 1:
+                self.bombers.append(Bomber([self.map.size-1,self.map.size-1]))
     def placeBomb(self):
         pass
 
