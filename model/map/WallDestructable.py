@@ -1,6 +1,6 @@
 from model.map.MapTile import MapTile
 from util.SpriteLoader import SpriteLoader
-
+from model.map.MapElement import MapElement
 
 class WallDestructable(MapTile):
     def __init__(self, x, y):
@@ -10,3 +10,6 @@ class WallDestructable(MapTile):
 
     def isEmpty(self):
         return False
+
+    def whoImMap(self):
+        return MapElement.WallDestructable

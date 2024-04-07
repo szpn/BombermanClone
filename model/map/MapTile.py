@@ -1,7 +1,7 @@
 import pygame
 
 from util.SpriteLoader import SpriteLoader
-
+from model.map.MapElement import MapElement
 
 class MapTile:
     def __init__(self,x,y):
@@ -13,3 +13,6 @@ class MapTile:
 
     def isEmpty(self):
         return True
+
+    def whoImMap(self):
+        return MapElement.Maptile

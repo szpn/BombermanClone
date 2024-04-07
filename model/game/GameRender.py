@@ -10,6 +10,8 @@ class GameRender:
         self.drawMap(self.game.map)
         self.drawBombers(self.game.bombers)
         self.drawPowerUps(self.game.powerups)
+        self.drawBombs(self.game.bombs)
+        self.drawFires(self.game.fires)
         pygame.display.update()
 
     def cleanWindow(self):
@@ -24,6 +26,14 @@ class GameRender:
     def drawBombers(self, bombers):
         for bomber in bombers:
             self.screen.blit(bomber.sprite.image, bomber.rect)
+
+    def drawBombs(self, bombs):
+        for bomb in bombs:
+            self.screen.blit(bomb.sprite.image, bomb.rect)
+
+    def drawFires(self, fires):
+        for fire in fires:
+            self.screen.blit(fire.sprite.image, fire.rect)
 
     def drawPowerUps(self, powerups):
         for powerup in powerups:
