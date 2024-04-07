@@ -8,7 +8,7 @@ class Game:
     def __init__(self, map):
         self.map = map
         self.bombers = []
-        self.bomb = []
+        self.bombs = []
         self.powerups = []
         self.spawnPowerUp()
         self.currentTick = 0
@@ -21,7 +21,11 @@ class Game:
         self.currentTick += 1
 
     def tickBombs(self):
-        pass
+        for bomb in self.bombs:
+            bomb.fuse-=1
+            if bomb.fuse == 0:
+                bomb.bombExplode()
+
 
     def pickupPowerUps(self):
         pass
@@ -43,7 +47,7 @@ class Game:
     def placeBomb(self,bomber):
 
         if bomber.bombCounter < bomber.bombLimit:
-            self.bomb.append(Bomb([bomber.x,bomber.y],bomber.bombPower,bomber,self))
+            self.bombs.append(Bomb([bomber.x,bomber.y],bomber.bombPower,bomber,self))
             bomber.bombCounter +=1
             # print("bomb has been planted")
 
@@ -53,4 +57,5 @@ class Game:
         self.powerups.append(powerUp)
 
     def bombBOOM(self,bomb):
-        pass
+        print("xdd")
+        self.bombs.remove(bomb)
