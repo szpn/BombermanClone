@@ -13,3 +13,4 @@ class MapTile:
 
     def isEmpty(self):
         return True
+

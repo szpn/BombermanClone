@@ -33,19 +33,19 @@ class Game:
     def moveBomber(self, bomber, direction):
         if bomber not in self.bombers:
             raise ValueError("The provided bomber is not in the game!")
-        if self.currentTick - bomber.lastMoveTick > 25:
-            bomber.move(direction)
+        #tutaj możeesz zmienić jak szybko się ruszają
+        if self.currentTick - bomber.lastMoveTick > 15:
+            bomber.move(direction,self.map)
             bomber.lastMoveTick = self.currentTick
 
 
     def addBombers(self, count):
         for i in range(count):
             if i == 0:
-                self.bombers.append(Bomber([0, 0]))
+                self.bombers.append(Bomber([1, 1]))
             elif i == 1:
-                self.bombers.append(Bomber([self.map.size-1,self.map.size-1]))
+                self.bombers.append(Bomber([self.map.size-2,self.map.size-2]))
     def placeBomb(self,bomber):
-
         if bomber.bombCounter < bomber.bombLimit:
             self.bombs.append(Bomb([bomber.x,bomber.y],bomber.bombPower,bomber,self))
             bomber.bombCounter +=1
@@ -57,5 +57,4 @@ class Game:
         self.powerups.append(powerUp)
 
     def bombBOOM(self,bomb):
-        print("xdd")
         self.bombs.remove(bomb)
