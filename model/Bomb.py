@@ -3,8 +3,7 @@ import pygame
 from util.SpriteLoader import SpriteLoader
 
 class Bomb:
-    def __init__(self,position,power,bomber,game):
-        self.game = game
+    def __init__(self,position,power,bomber):
         self.x = position[0]
         self.y = position[1]
         self.power = power
@@ -13,7 +12,4 @@ class Bomb:
         self.sprite = SpriteLoader.loadSprite("./resources/sprites/unknown.png")
         #trzeba wiedzieć komu odnowić limit
         self.bomber = bomber
-    def bombExplode(self):
-        self.bomber.bombCounter-=1
-        self.game.bombBOOM(self)
 

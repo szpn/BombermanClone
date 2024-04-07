@@ -28,7 +28,7 @@ class Game:
         for bomb in self.bombs:
             bomb.fuse -= 1
             if bomb.fuse == 0:
-                bomb.bombExplode()
+                self.bombBOOM(bomb)
 
     def tickFire(self):
         for fire in self.fires:
@@ -57,7 +57,7 @@ class Game:
 
     def placeBomb(self, bomber):
         if bomber.bombCounter < bomber.bombLimit:
-            self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber, self))
+            self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber))
             bomber.bombCounter += 1
             # print("bomb has been planted")
 
@@ -67,6 +67,7 @@ class Game:
         self.powerups.append(powerUp)
 
     def bombBOOM(self, bomb):
+        bomb.bomber.bombCounter -= 1
         gora, dol, lewo, prawo = True, True, True, True
 
         for i in range(0, bomb.power + 1):
@@ -87,13 +88,13 @@ class Game:
     def bombDestroyOrNot(self, mapElem, x, y):
         if mapElem == MapElement.WallDestructable:
             self.map.map[x][y] = MapTile(x, y)
-            self.fires.append(Fire((x, y), self))
+            self.fires.append(Fire((x, y)))
             self.firesCord[x][y] += 1
             return False
         elif mapElem == MapElement.Wall:
             return False
         elif mapElem == MapElement.Maptile:
-            self.fires.append(Fire((x, y), self))
+            self.fires.append(Fire((x, y)))
             self.firesCord[x][y] += 1
             for bomber in self.bombers:
                 if bomber.x == x and bomber.y == y:

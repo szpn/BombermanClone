@@ -3,8 +3,7 @@ import pygame
 from util.SpriteLoader import SpriteLoader
 
 class Fire:
-    def __init__(self,position,game):
-        self.game = game
+    def __init__(self,position):
         self.x = position[0]
         self.y = position[1]
         self.burn = 50
