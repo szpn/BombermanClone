@@ -10,12 +10,3 @@ class Map:
 
     def getObjectAt(self, x, y):
         return self.map[x][y]
-
-    def drawMap(self, screen):
-        for i in range(self.size):
-            for j in range(self.size):
-                tile = self.map[i][j]
-                screen.blit(tile.sprite.image, tile.rect)
-
-        for bomberman in self.bombermans:
-            screen.blit(bomberman.sprite.image, bomberman.rect)
