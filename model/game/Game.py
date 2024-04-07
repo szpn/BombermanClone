@@ -1,4 +1,5 @@
 from model.Bomber import Bomber
+from model.Bomb import Bomb
 from model.powerup.PowerUpCreator import PowerUpCreator
 from util.RandomEmptyPosition import RandomEmptyPosition
 
@@ -32,8 +33,6 @@ class Game:
             bomber.move(direction)
             bomber.lastMoveTick = self.currentTick
 
-        #TODO: finish this
-
 
     def addBombers(self, count):
         for i in range(count):
@@ -41,10 +40,17 @@ class Game:
                 self.bombers.append(Bomber([0, 0]))
             elif i == 1:
                 self.bombers.append(Bomber([self.map.size-1,self.map.size-1]))
-    def placeBomb(self):
-        pass
+    def placeBomb(self,bomber):
+
+        if bomber.bombCounter < bomber.bombLimit:
+            self.bomb.append(Bomb([bomber.x,bomber.y],bomber.bombPower,bomber,self))
+            bomber.bombCounter +=1
+            # print("bomb has been planted")
 
     def spawnPowerUp(self):
         powerUpPosition = RandomEmptyPosition.generate(self)
         powerUp = PowerUpCreator.create_random_powerup(powerUpPosition)
         self.powerups.append(powerUp)
+
+    def bombBOOM(self,bomb):
+        pass

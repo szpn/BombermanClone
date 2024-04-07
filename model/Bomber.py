@@ -4,6 +4,7 @@ from util.SpriteLoader import SpriteLoader
 
 
 class Bomber:
+
     def __init__(self, position, lives=3):
         self.lives = lives
         self.x = position[0]
@@ -11,6 +12,9 @@ class Bomber:
         self.rect = pygame.Rect(position[0]*64,position[1]*64,64,64)
         self.sprite = SpriteLoader.loadSprite("./resources/sprites/bomber.png")
         self.lastMoveTick=0
+        self.bombLimit = 1
+        self.bombCounter = 0
+        self.bombPower = 1
     def move(self,direction):
         #TODO tu trzeba będize jakiś validator dowalić ale kolizji póki co nie ogarniam i no bez mapy też cięzko
         dir_x = direction.value[0]

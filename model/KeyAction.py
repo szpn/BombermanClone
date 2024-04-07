@@ -21,6 +21,9 @@ class KeyAction:
             self.gameTohandle.moveBomber(self.gameTohandle.bombers[0],Directions.UP)
         if key[pygame.K_s]:
             self.gameTohandle.moveBomber(self.gameTohandle.bombers[0],Directions.DOWN)
+        if key[pygame.K_e]:
+            self.gameTohandle.placeBomb(self.gameTohandle.bombers[0])
+
 
         if key[pygame.K_LEFT]:
             self.gameTohandle.moveBomber(self.gameTohandle.bombers[1],Directions.LEFT)
@@ -30,7 +33,8 @@ class KeyAction:
             self.gameTohandle.moveBomber(self.gameTohandle.bombers[1],Directions.UP)
         if key[pygame.K_DOWN]:
             self.gameTohandle.moveBomber(self.gameTohandle.bombers[1],Directions.DOWN)
-
+        if key[pygame.K_KP_DIVIDE]:
+            self.gameTohandle.placeBomb(self.gameTohandle.bombers[1])
 
         if key[pygame.K_ESCAPE]:
             self.gameTohandle.run = False
