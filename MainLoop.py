@@ -6,6 +6,7 @@ from model.game.GameCreator import GameCreator
 
 STATE_MENU = 0
 STATE_GAME = 1
+STATE_END = 2
 FPS = 60
 
 class MainLoop:

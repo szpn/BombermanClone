@@ -19,7 +19,6 @@ class Bomber:
         #TODO tu trzeba będize jakiś validator dowalić ale kolizji póki co nie ogarniam i no bez mapy też cięzko
         dir_x = direction.value[0]
         dir_y = direction.value[1]
-        print(board.getObjectAt(dir_x+self.x,dir_y+self.y).isEmpty())
         if board.getObjectAt(dir_x+self.x,dir_y+self.y).isEmpty():
             self.x += dir_x
             self.y += dir_y
@@ -29,8 +28,10 @@ class Bomber:
         return '@'
 
     def bomberDmg(self):
-        print("print aua to bolalo")
         self.lives-=1
+        if self.lives == 0:
+            print("koniec gry")
+
     def whoImString(self):
         return "Bomberman"
 
