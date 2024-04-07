@@ -19,8 +19,12 @@ class MainLoop:
 
     def run(self):
         clock = pygame.time.Clock()
+
         while self.isRunning:
+
             time_delta = clock.tick(FPS)/1000.0
+
+
             if self.state == STATE_MENU:
                 self.menuloop.tick()
                 self.menuloop.manager.update(time_delta)
@@ -39,7 +43,8 @@ class MainLoop:
         if id == "HOST GAME":
             mapName = message["mapName"]
             game = GameCreator.createGameUsingMapFile(mapName, 1)
-            self.startGame(game)
+            game2 = GameCreator.createGameUsingMapFile(mapName, 2)
+            self.startGame(game2)
 
 
 
