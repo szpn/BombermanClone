@@ -15,6 +15,7 @@ class Game:
         self.powerups = []
         self.fires = []
         self.firesCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
+        self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
         self.spawnPowerUp()
         self.currentTick = 0
 
@@ -56,7 +57,8 @@ class Game:
                 self.bombers.append(Bomber([self.map.size - 2, self.map.size - 2]))
 
     def placeBomb(self, bomber):
-        if bomber.bombCounter < bomber.bombLimit:
+        if bomber.bombCounter < bomber.bombLimit and self.bombCord[bomber.x][bomber.y] == 0:
+            self.bombCord[bomber.x][bomber.y] = 1
             self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber))
             bomber.bombCounter += 1
             # print("bomb has been planted")
@@ -69,6 +71,7 @@ class Game:
     def bombBOOM(self, bomb):
         bomb.bomber.bombCounter -= 1
         gora, dol, lewo, prawo = True, True, True, True
+        self.bombCord[bomb.x][bomb.y] = 0
 
         for i in range(0, bomb.power + 1):
             if i == 0:
@@ -77,11 +80,11 @@ class Game:
             if gora:
                 gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y + i).whoImMap(), bomb.x, bomb.y + i)
             if dol:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y - i).whoImMap(), bomb.x, bomb.y - i)
+                dol = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y - i).whoImMap(), bomb.x, bomb.y - i)
             if lewo:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x - i, bomb.y).whoImMap(), bomb.x - i, bomb.y)
+                lewo = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x - i, bomb.y).whoImMap(), bomb.x - i, bomb.y)
             if prawo:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x + i, bomb.y).whoImMap(), bomb.x + i, bomb.y)
+                prawo = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x + i, bomb.y).whoImMap(), bomb.x + i, bomb.y)
 
         self.bombs.remove(bomb)
 

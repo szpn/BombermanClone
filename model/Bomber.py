@@ -12,9 +12,9 @@ class Bomber:
         self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
         self.sprite = SpriteLoader.loadSprite("./resources/sprites/bomber.png")
         self.lastMoveTick = 0
-        self.bombLimit = 1
+        self.bombLimit = 2
         self.bombCounter = 0
-        self.bombPower = 1
+        self.bombPower = 2
 
     def move(self, direction, board, firesCord):
         # TODO tu trzeba będize jakiś validator dowalić ale kolizji póki co nie ogarniam i no bez mapy też cięzko
