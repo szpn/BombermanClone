@@ -34,5 +34,8 @@ class KeyAction:
         if key[pygame.K_SLASH]:
             self.gameTohandle.placeBomb(self.gameTohandle.bombers[1])
 
+        if key[pygame.K_p]:
+            self.gameTohandle.spawnPowerUp()
+
         if key[pygame.K_ESCAPE]:
             self.gameTohandle.run = False

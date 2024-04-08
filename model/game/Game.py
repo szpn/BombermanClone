@@ -50,7 +50,7 @@ class Game:
         if bomber not in self.bombers:
             raise ValueError("The provided bomber is not in the game!")
         # tutaj możeesz zmienić jak szybko się ruszają
-        if self.currentTick - bomber.lastMoveTick > 15:
+        if bomber.moveAvailable(self.currentTick):
             bomber.move(direction, self.map, self.firesCord)
             bomber.lastMoveTick = self.currentTick
 
@@ -83,11 +83,11 @@ class Game:
             if gora:
                 gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y + i).whoImMap(), bomb.x, bomb.y + i)
             if dol:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y - i).whoImMap(), bomb.x, bomb.y - i)
+                dol = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x, bomb.y - i).whoImMap(), bomb.x, bomb.y - i)
             if lewo:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x - i, bomb.y).whoImMap(), bomb.x - i, bomb.y)
+                lewo = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x - i, bomb.y).whoImMap(), bomb.x - i, bomb.y)
             if prawo:
-                gora = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x + i, bomb.y).whoImMap(), bomb.x + i, bomb.y)
+                prawo = self.bombDestroyOrNot(self.map.getObjectAt(bomb.x + i, bomb.y).whoImMap(), bomb.x + i, bomb.y)
 
         self.bombs.remove(bomb)
 
