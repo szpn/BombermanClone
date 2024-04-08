@@ -1,10 +1,11 @@
 from random import choice
 
+from model.powerup.PowerUpBombCount import PowerUpBombCount
 from model.powerup.PowerUpHealth import PowerUpHealth
 
 
 class PowerUpCreator:
-    available_powerups = [PowerUpHealth]
+    available_powerups = [PowerUpHealth, PowerUpBombCount]
 
 
     @staticmethod

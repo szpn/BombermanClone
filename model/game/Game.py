@@ -38,7 +38,13 @@ class Game:
                 self.fires.remove(fire)
 
     def pickupPowerUps(self):
-        pass
+        #TODO: rewrite this
+        for bomber in self.bombers:
+            for powerup in self.powerups:
+                if bomber.x == powerup.x and bomber.y == powerup.y:
+                    powerup.picked_up(bomber)
+                    self.powerups.remove(powerup)
+
 
     def moveBomber(self, bomber, direction):
         if bomber not in self.bombers:
@@ -51,15 +57,15 @@ class Game:
     def addBombers(self, count):
         for i in range(count):
             if i == 0:
-                self.bombers.append(Bomber([1, 1]))
+                self.bombers.append(Bomber(self.map.spawnPoints[0]))
             elif i == 1:
-                self.bombers.append(Bomber([self.map.size - 2, self.map.size - 2]))
+                self.bombers.append(Bomber(self.map.spawnPoints[1]))
 
     def placeBomb(self, bomber):
         if bomber.bombCounter < bomber.bombLimit:
             self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber))
             bomber.bombCounter += 1
-            # print("bomb has been planted")
+            #print("bomb has been planted")
 
     def spawnPowerUp(self):
         powerUpPosition = RandomEmptyPosition.generate(self)

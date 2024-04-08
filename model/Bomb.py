@@ -9,7 +9,7 @@ class Bomb:
         self.power = power
         self.fuse = 250
         self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/unknown.png")
+        self.sprite = SpriteLoader.loadSprite("./resources/sprites/bomb.png")
         #trzeba wiedzieć komu odnowić limit
         self.bomber = bomber
 
