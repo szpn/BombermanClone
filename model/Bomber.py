@@ -17,7 +17,7 @@ class Bomber:
 
         self.bombLimit = 1
         self.bombCounter = 0
-        self.bombPower = 1
+        self.bombPower = 2
 
 
     def move(self, direction, board, firesCord):

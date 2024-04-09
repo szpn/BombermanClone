@@ -15,6 +15,7 @@ class Game:
         self.powerups = []
         self.fires = []
         self.firesCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
+        self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
         self.spawnPowerUp()
         self.currentTick = 0
 
@@ -62,7 +63,8 @@ class Game:
                 self.bombers.append(Bomber(self.map.spawnPoints[1]))
 
     def placeBomb(self, bomber):
-        if bomber.bombCounter < bomber.bombLimit:
+        if bomber.bombCounter < bomber.bombLimit and self.bombCord[bomber.x][bomber.y] == 0:
+            self.bombCord[bomber.x][bomber.y] = 1
             self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber))
             bomber.bombCounter += 1
             #print("bomb has been planted")
@@ -75,6 +77,7 @@ class Game:
     def bombBOOM(self, bomb):
         bomb.bomber.bombCounter -= 1
         gora, dol, lewo, prawo = True, True, True, True
+        self.bombCord[bomb.x][bomb.y] = 0
 
         for i in range(0, bomb.power + 1):
             if i == 0:
