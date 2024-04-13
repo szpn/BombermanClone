@@ -1,3 +1,5 @@
+import math
+
 import pygame
 
 class GameRender:
@@ -56,3 +58,4 @@ class GameRender:
 
     def calculateScaleFactor(self):
         self.scale_factor = self.screen.get_width() / (64 * self.game.map.size)
+        print(self.scale_factor)

@@ -49,7 +49,7 @@ class Game:
     def moveBomber(self, bomber, direction):
         if bomber not in self.bombers:
             raise ValueError("The provided bomber is not in the game!")
-        # tutaj możeesz zmienić jak szybko się ruszają
+
         if bomber.moveAvailable(self.currentTick):
             bomber.move(direction, self.map, self.firesCord)
             bomber.lastMoveTick = self.currentTick
