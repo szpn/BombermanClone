@@ -5,7 +5,9 @@ from model.game.GameCreator import GameCreator
 
 STATE_MENU = 0
 STATE_GAME = 1
+STATE_END = 2
 FPS = 60
+
 
 class MainLoop:
     def __init__(self, screen):
@@ -16,11 +18,12 @@ class MainLoop:
         self.gameloop = GameLoop(screen)
         self.isRunning = True
 
-
     def run(self):
         clock = pygame.time.Clock()
+
         while self.isRunning:
-            time_delta = clock.tick(FPS)/1000.0
+
+            time_delta = clock.tick(FPS) / 1000.0
 
             if self.state == STATE_MENU:
                 self.menuloop.tick()
@@ -34,21 +37,18 @@ class MainLoop:
 
         pygame.quit()
 
-    #TODO :change the "ID" to be numbers not string
+    # TODO :change the "ID" to be numbers not string
     def handleMessage(self, message):
         id = message["id"]
         if id == "HOST GAME":
             mapName = message["mapName"]
             game = GameCreator.createGameUsingMapFile(mapName, 1)
-            self.startGame(game)
-
-
-
+            game2 = GameCreator.createGameUsingMapFile(mapName, 2)
+            self.startGame(game2)
 
     def startGame(self, game):
         self.state = STATE_GAME
         self.gameloop.setGame(game)
-
 
     def handleEvents(self):
         for event in pygame.event.get():
