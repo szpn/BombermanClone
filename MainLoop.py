@@ -42,9 +42,8 @@ class MainLoop:
         id = message["id"]
         if id == "HOST GAME":
             mapName = message["mapName"]
-            game = GameCreator.createGameUsingMapFile(mapName, 1)
-            game2 = GameCreator.createGameUsingMapFile(mapName, 2)
-            self.startGame(game2)
+            game = GameCreator.createGameUsingMapFile(mapName, 2)
+            self.startGame(game)
 
     def startGame(self, game):
         self.state = STATE_GAME

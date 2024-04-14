@@ -100,8 +100,7 @@ class Game:
             self.fires.append(Fire((x, y)))
             self.firesCord[x][y] += 1
             return False
-        elif mapElem == MapElement.Wall:
-            return False
+
         elif mapElem == MapElement.Maptile:
             self.fires.append(Fire((x, y)))
             self.firesCord[x][y] += 1
@@ -109,4 +108,5 @@ class Game:
                 if bomber.x == x and bomber.y == y:
                     bomber.bomberDmg()
             return True
+
         return False
