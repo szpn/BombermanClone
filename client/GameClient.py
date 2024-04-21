@@ -7,7 +7,7 @@ class GameClient:
         self.host = host
         self.port = port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.lastMessage = None
+        self.lastMessage = []
 
     def connect(self):
         self.client_socket.connect((self.host, self.port))
@@ -25,7 +25,7 @@ class GameClient:
 
                 message = pickle.loads(data)
                 print(f"Received message: {message}")
-                self.lastMessage = message
+                self.lastMessage.append(message)
             except Exception as e:
                 print(f"Error: {e}")
                 break

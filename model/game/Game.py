@@ -55,6 +55,7 @@ class Game:
             bomber.move(direction, self.map, self.firesCord)
             bomber.lastMoveTick = self.currentTick
 
+
     def addBombers(self, count):
         for i in range(count):
             if i == 0:

@@ -30,7 +30,8 @@ class Bomber:
             self.rect.move_ip(dir_x * 64, dir_y * 64)
             if firesCord[self.x][self.y] > 0:
                 self.bomberDmg()
-        return '@'
+            return True
+        return False
 
     def moveAvailable(self, currentTicks):
         return currentTicks - self.lastMoveTick >= self.ticksNeededToMove

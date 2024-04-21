@@ -48,19 +48,19 @@ class MainLoop:
         if id == "HOST GAME":
             self.connection.client_socket.sendall(pickle.dumps(message))
             while True:
-                if(self.connection.lastMessage):
+                if(self.connection.lastMessage != []):
                     break
             print(self.connection.lastMessage)
-            mapName = self.connection.lastMessage["mapName"]
+            mapName = self.connection.lastMessage.pop(0)["mapName"]
             game = GameCreator.createGameUsingMapFile(mapName, 2)
             self.startGame(game)
         elif id == "JOIN GAME":
             self.connection.client_socket.sendall(pickle.dumps(message))
             while True:
-                if (self.connection.lastMessage):
+                if (self.connection.lastMessage != []):
                     break
             print(self.connection.lastMessage)
-            mapName = self.connection.lastMessage["mapName"]
+            mapName = self.connection.lastMessage.pop(0)["mapName"]
             game = GameCreator.createGameUsingMapFile(mapName, 2)
             self.startGame(game)
 
