@@ -7,10 +7,11 @@ from util.MapLoader import MapLoader
 
 
 class GameLoop:
-    def __init__(self, screen, game=None):
+    def __init__(self, screen,connection, game=None,):
         self.game = game
         self.keyHandler = KeyAction(self.game, True)
         self.render = GameRender(screen)
+        self.connection = connection
 
     def setGame(self, game):
         self.game = game

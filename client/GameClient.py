@@ -2,11 +2,12 @@ import socket
 import pickle
 from threading import Thread
 
-class SimpleClient:
+class GameClient:
     def __init__(self, host, port):
         self.host = host
         self.port = port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.lastMessage = None
 
     def connect(self):
         self.client_socket.connect((self.host, self.port))
@@ -24,22 +25,20 @@ class SimpleClient:
 
                 message = pickle.loads(data)
                 print(f"Received message: {message}")
+                self.lastMessage = message
             except Exception as e:
                 print(f"Error: {e}")
                 break
 
     def send_message(self, message):
         try:
-            if message == "HOSTTEST":
-                self.client_socket.sendall(pickle.dumps({"id": "HOST GAME", "mapName" : "maptest1"}))
-            elif message == "JOINTEST":
-                self.client_socket.sendall(pickle.dumps({"id": "JOIN GAME", "mapName" : "maptest1"}))
+            self.client_socket.sendall(pickle.dumps(message))
         except Exception as e:
             print(f"Error: {e}")
 
 # Example usage:
 if __name__ == "__main__":
-    client = SimpleClient("localhost", 8888)
+    client = GameClient("localhost", 8888)
     client.connect()
 
     while True:

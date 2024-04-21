@@ -3,8 +3,9 @@ import pygame_gui
 
 
 class MenuLoop:
-    def __init__(self, screen):
+    def __init__(self, screen,connection):
         self.screen = screen
+        self.connection = connection
         self.screen_rect = screen.get_rect()
         self.manager = pygame_gui.UIManager((800, 800))
         self.messageHandler = None
@@ -58,6 +59,11 @@ class MenuLoop:
                 print("Button clicked, but there is no hanlder to handle it!")
                 return
 
+            if event.ui_element == self.joinGameButton:
+                data = {"id": "JOIN GAME"}
+                self.messageHandler(data)
+                self.mainMenuPanel.hide()
+
             if event.ui_element == self.hostGameButton:
                 self.mainMenuPanel.hide()
                 self.hostGamePanel.show()
@@ -65,14 +71,17 @@ class MenuLoop:
             if event.ui_element == self.map1:
                 data = {"id": "HOST GAME", "mapName": "./resources/map1.txt"}
                 self.messageHandler(data)
+                self.hostGamePanel.hide()
 
             if event.ui_element == self.map2:
                 data = {"id": "HOST GAME", "mapName": "./resources/map2.txt"}
                 self.messageHandler(data)
+                self.hostGamePanel.hide()
 
             if event.ui_element == self.map3:
                 data = {"id": "HOST GAME", "mapName": "./resources/map3.txt"}
                 self.messageHandler(data)
+                self.hostGamePanel.hide()
 
     def listenForMessages(self, messageHandler):
         self.messageHandler = messageHandler

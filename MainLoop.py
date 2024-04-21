@@ -1,6 +1,8 @@
 import pygame
+import pickle
 from GameLoop import GameLoop
 from MenuLoop import MenuLoop
+from client.GameClient import GameClient
 from model.game.GameCreator import GameCreator
 
 STATE_MENU = 0
@@ -13,13 +15,16 @@ class MainLoop:
     def __init__(self, screen):
         self.state = STATE_MENU
         self.screen = screen
-        self.menuloop = MenuLoop(screen)
-        self.menuloop.listenForMessages(self.handleMessage)
-        self.gameloop = GameLoop(screen)
         self.isRunning = True
+        self.connection = GameClient("localhost", 8888)
+        self.menuloop = MenuLoop(screen, self.connection)
+        self.gameloop = GameLoop(screen, self.connection)
+        self.menuloop.listenForMessages(self.handleMessage)
 
     def run(self):
         clock = pygame.time.Clock()
+
+        self.connection.connect()
 
         while self.isRunning:
 
@@ -41,7 +46,21 @@ class MainLoop:
     def handleMessage(self, message):
         id = message["id"]
         if id == "HOST GAME":
-            mapName = message["mapName"]
+            self.connection.client_socket.sendall(pickle.dumps(message))
+            while True:
+                if(self.connection.lastMessage):
+                    break
+            print(self.connection.lastMessage)
+            mapName = self.connection.lastMessage["mapName"]
+            game = GameCreator.createGameUsingMapFile(mapName, 2)
+            self.startGame(game)
+        elif id == "JOIN GAME":
+            self.connection.client_socket.sendall(pickle.dumps(message))
+            while True:
+                if (self.connection.lastMessage):
+                    break
+            print(self.connection.lastMessage)
+            mapName = self.connection.lastMessage["mapName"]
             game = GameCreator.createGameUsingMapFile(mapName, 2)
             self.startGame(game)
 
