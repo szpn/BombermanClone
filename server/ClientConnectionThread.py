@@ -12,19 +12,19 @@ class ClientConnectionThread(Thread):
     def run(self):
         while True:
             try:
-                data = self.client_socket.recv(1024)
-                if not data:
-                    break
-
-                message = pickle.loads(data)
-                self.server.client_message(self, message)
-
+                self.recieveData()
 
             except Exception as e:
                 print(f"Error: {e}")
                 break
 
-    def send(self, data):
+    def recieveData(self):
+        data = self.client_socket.recv(1024)
+
+        message = pickle.loads(data)
+        self.server.handleClientMessage(self, message)
+
+    def sendData(self, data):
         try:
             message = pickle.dumps(data)
             self.client_socket.sendall(message)

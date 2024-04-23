@@ -2,6 +2,7 @@ import socket
 import pickle
 
 from server.ClientConnectionThread import ClientConnectionThread
+from server.LobbyManager import LobbyManager
 
 
 class Server:
@@ -9,6 +10,7 @@ class Server:
         self.host = host
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.lobby_manager = LobbyManager()
         self.clients = []
 
     def start(self):
@@ -23,18 +25,24 @@ class Server:
             client_thread.start()
             self.clients.append(client_thread)
 
-
-    def client_message(self, clientThread, message):
+    def handleClientMessage(self, client_thread, message):
         print(message)
-        if message == "Hi":
-            clientThread.client_socket.send(pickle.dumps("Hi!"))
+        if message.startswith("HOST_LOBBY"):
+            self.lobby_manager.createLobby(client_thread)
+
+        if message.startswith("JOIN_LOBBY"):
+            lobby_id = int(message.split(":")[1])
+            self.lobby_manager.joinLobby(lobby_id, client_thread)
+
+        if message.startswith("LIST_LOBBY"):
+            lobbies = self.lobby_manager.getLobbies()
+            client_thread.sendData({"LOBBIES": lobbies})
+
+
 
     def broadcast_data(self, data):
         for client in self.clients:
-            client.send(data)
-
-
-
+            client.sendData(data)
 
 if __name__ == "__main__":
     server = Server("localhost", 8888)
