@@ -9,6 +9,6 @@ class Bomb:
         self.power = power
         self.fuse = 250
         self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/bomb.png")
+        self.sprite = SpriteLoader.loadSprite("bomb")
         self.bomber = bomber
 

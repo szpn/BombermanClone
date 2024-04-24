@@ -8,7 +8,7 @@ class PowerUpHealth(PowerUp):
     def __init__(self, position):
         super().__init__(position)
 
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/poweruphealth.png")
+        self.sprite = SpriteLoader.loadSprite("poweruphealth")
 
     def picked_up(self, bomber):
         bomber.lives +=1

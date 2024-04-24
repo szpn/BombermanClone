@@ -6,9 +6,13 @@ class LobbyManager:
         self.lobbies = {}
         self.nextLobbyID = 1
 
-    def createLobby(self, hostClient):
-        self.lobbies[self.nextLobbyID] = Lobby(self.nextLobbyID, hostClient)
+    def hostLobby(self, hostClient):
+        lobby = Lobby(self.nextLobbyID, hostClient)
+        lobby.addPlayer(hostClient)
+
+        self.lobbies[self.nextLobbyID] = lobby
         self.nextLobbyID += 1
+
 
     def joinLobby(self, lobby_id, player):
         if lobby_id in self.lobbies:

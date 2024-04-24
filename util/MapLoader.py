@@ -1,3 +1,4 @@
+import os
 from model.map.Map import Map
 from model.map.MapTile import MapTile
 from model.map.Wall import Wall
@@ -6,8 +7,11 @@ from model.map.WallDestructable import WallDestructable
 
 class MapLoader():
     @staticmethod
-    def fromFile(mapPath):
-        with open(mapPath, 'r') as f:
+    def fromFile(mapName):
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.dirname(current_dir)
+        file_path = os.path.join(parent_dir, 'resources', mapName + '.txt')
+        with open(file_path, 'r') as f:
             lines = f.readlines()
 
         size = int(lines[0])

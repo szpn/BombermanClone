@@ -3,11 +3,11 @@ import pickle
 
 
 class ClientConnectionThread(Thread):
-    def __init__(self, client_socket, client_address, server):
+    def __init__(self, client_socket, client_address, messageHandeler):
         super().__init__()
         self.client_socket = client_socket
         self.client_address = client_address
-        self.server = server
+        self.messageHandlingFunction = messageHandeler
 
     def run(self):
         while True:
@@ -22,7 +22,7 @@ class ClientConnectionThread(Thread):
         data = self.client_socket.recv(1024)
 
         message = pickle.loads(data)
-        self.server.handleClientMessage(self, message)
+        self.messageHandlingFunction(self, message)
 
     def sendData(self, data):
         try:

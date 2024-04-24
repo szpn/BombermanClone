@@ -21,14 +21,14 @@ class Server:
         while True:
             client_socket, client_address = self.server_socket.accept()
             print(f"Connection from {client_address}")
-            client_thread = ClientConnectionThread(client_socket, client_address, self)
+            client_thread = ClientConnectionThread(client_socket, client_address, self.handleClientMessage)
             client_thread.start()
             self.clients.append(client_thread)
 
     def handleClientMessage(self, client_thread, message):
-        print(message)
+        print(f"[SERVER] {message}")
         if message.startswith("HOST_LOBBY"):
-            self.lobby_manager.createLobby(client_thread)
+            self.lobby_manager.hostLobby(client_thread)
 
         if message.startswith("JOIN_LOBBY"):
             lobby_id = int(message.split(":")[1])
@@ -37,7 +37,6 @@ class Server:
         if message.startswith("LIST_LOBBY"):
             lobbies = self.lobby_manager.getLobbies()
             client_thread.sendData({"LOBBIES": lobbies})
-
 
 
     def broadcast_data(self, data):

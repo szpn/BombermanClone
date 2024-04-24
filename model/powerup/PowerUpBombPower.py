@@ -8,7 +8,7 @@ class PowerUpBombPower(PowerUp):
     def __init__(self, position):
         super().__init__(position)
 
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/powerupbombpower.png")
+        self.sprite = SpriteLoader.loadSprite("powerupbombpower")
 
     def picked_up(self, bomber):
         bomber.bombPower +=1
