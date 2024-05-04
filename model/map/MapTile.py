@@ -8,7 +8,7 @@ class MapTile:
         self.x = x
         self.y = y
         self.rect = pygame.Rect(x*64, y*64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite('./resources/sprites/tile.png')
+        self.sprite = SpriteLoader.loadSprite('tile')
 
 
     def isEmpty(self):

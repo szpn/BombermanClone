@@ -5,7 +5,7 @@ from model.map.MapElement import MapElement
 class WallDestructable(MapTile):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.sprite = SpriteLoader.loadSprite('./resources/sprites/wall_destructable.png')
+        self.sprite = SpriteLoader.loadSprite('wall_destructable')
 
 
     def isEmpty(self):

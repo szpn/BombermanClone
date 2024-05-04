@@ -10,7 +10,7 @@ class Bomber:
         self.x = position[0]
         self.y = position[1]
         self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/bomber.png")
+        self.sprite = SpriteLoader.loadSprite("bomber")
 
         self.lastMoveTick = 0
         self.ticksNeededToMove = 20

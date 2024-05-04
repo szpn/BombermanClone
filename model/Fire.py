@@ -8,4 +8,4 @@ class Fire:
         self.y = position[1]
         self.burn = 50
         self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite("./resources/sprites/fire.png")
+        self.sprite = SpriteLoader.loadSprite("fire")

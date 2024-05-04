@@ -1,8 +1,8 @@
 import socket
 import pickle
 
-from ClientConnectionThread import ClientConnectionThread
-from ServerGameHandler import ServerGameHandler
+from server.ClientConnectionThread import ClientConnectionThread
+from server.LobbyManager import LobbyManager
 
 
 class Server:
@@ -10,6 +10,7 @@ class Server:
         self.host = host
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.lobby_manager = LobbyManager()
         self.clients = []
         self.games = []
 
@@ -22,33 +23,27 @@ class Server:
         while True:
             client_socket, client_address = self.server_socket.accept()
             print(f"Connection from {client_address}")
-            client_thread = ClientConnectionThread(client_socket, client_address, self)
+            client_thread = ClientConnectionThread(client_socket, client_address, self.handleClientMessage)
             client_thread.start()
             self.clients.append(client_thread)
 
+    def handleClientMessage(self, client_thread, message):
+        print(f"[SERVER] {message}")
+        if message.startswith("HOST_LOBBY"):
+            self.lobby_manager.hostLobby(client_thread)
 
-    def client_message(self, clientThread, message):
-        print(message)
-        if message["id"] == "HOST GAME":
-            print(clientThread.client_address, "jestem hostem")
-            newHandler = ServerGameHandler(message["mapName"],2)
-            newHandler.players.append(clientThread)
-            self.games.append([newHandler,clientThread])
-        elif message["id"] == "JOIN GAME":
-            print(clientThread.client_address, "joinuje")
-            #narazie tylko dla 2 ma działać także no
-            self.games[0].append([clientThread])
-            self.games[0][0].players.append(clientThread)
-            self.games[0][0].start_game()
-        elif message == "Hi":
-            clientThread.client_socket.send(pickle.dumps("Hi!"))
+        if message.startswith("JOIN_LOBBY"):
+            lobby_id = int(message.split(":")[1])
+            self.lobby_manager.joinLobby(lobby_id, client_thread)
+
+        if message.startswith("LIST_LOBBY"):
+            lobbies = self.lobby_manager.getLobbies()
+            client_thread.sendData({"LOBBIES": lobbies})
+
 
     def broadcast_data(self, data):
         for client in self.clients:
-            client.send(data)
-
-
-
+            client.sendData(data)
 
 if __name__ == "__main__":
     server = Server("localhost", 8888)

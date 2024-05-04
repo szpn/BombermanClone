@@ -12,21 +12,27 @@ class SimpleClient:
         self.client_socket.connect((self.host, self.port))
         print(f"Connected to server at {self.host}:{self.port}")
 
-        receive_thread = Thread(target=self.receive_messages)
-        receive_thread.start()
+        self.receive_thread = Thread(target=self.receive_messages)
+        self.receive_thread.start()
+
+    def close(self):
+        self.client_socket.close()
+        self.receive_thread.join()
 
     def receive_messages(self):
         while True:
             try:
                 data = self.client_socket.recv(1024)
                 if not data:
+                    print(f"Client disconnected")
                     break
 
                 message = pickle.loads(data)
                 print(f"Received message: {message}")
-            except Exception as e:
-                print(f"Error: {e}")
-                break
+            except socket.error as e:
+                print(f"Error during data retrieval: {e}")
+                return
+
 
     def send_message(self, message):
         try:
@@ -37,11 +43,16 @@ class SimpleClient:
         except Exception as e:
             print(f"Error: {e}")
 
-# Example usage:
+
 if __name__ == "__main__":
     client = SimpleClient("localhost", 8888)
     client.connect()
 
-    while True:
-        message = input("Enter message: ")
-        client.send_message(message)
+    try:
+        while True:
+            message = input("Enter message: ")
+            client.send_message(message)
+
+    except KeyboardInterrupt:
+        print("Keyboard interrupt detected. Closing connection.")
+        client.close()
