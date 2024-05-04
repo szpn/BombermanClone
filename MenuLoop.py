@@ -63,15 +63,15 @@ class MenuLoop:
                 self.hostGamePanel.show()
 
             if event.ui_element == self.map1:
-                data = {"id": "HOST GAME", "mapName": "./resources/map1.txt"}
+                data = {"id": "HOST GAME", "mapName": "map1"}
                 self.messageHandler(data)
 
             if event.ui_element == self.map2:
-                data = {"id": "HOST GAME", "mapName": "./resources/map2.txt"}
+                data = {"id": "HOST GAME", "mapName": "map2"}
                 self.messageHandler(data)
 
             if event.ui_element == self.map3:
-                data = {"id": "HOST GAME", "mapName": "./resources/map3.txt"}
+                data = {"id": "HOST GAME", "mapName": "map3"}
                 self.messageHandler(data)
 
     def listenForMessages(self, messageHandler):

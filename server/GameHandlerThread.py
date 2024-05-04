@@ -9,7 +9,7 @@ class GameHandlerThread(Thread):
         self.lobby = lobby
         self.mapName = mapName
         self.game = GameCreator.createGameUsingMapFile(mapName, len(lobby.players))
-        self.TPS = 60
+        self.TPS = 20
 
 
     def run(self):
