@@ -1,8 +1,8 @@
 import socket
 import pickle
 
-from server.ClientConnectionThread import ClientConnectionThread
-from server.LobbyManager import LobbyManager
+from ClientConnectionThread import ClientConnectionThread
+from LobbyManager import LobbyManager
 
 
 class Server:

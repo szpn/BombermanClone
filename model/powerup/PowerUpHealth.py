@@ -1,7 +1,7 @@
 import pygame
 
-from model.powerup.PowerUp import PowerUp
-from util.SpriteLoader import SpriteLoader
+from BombermanClone.model.powerup.PowerUp import PowerUp
+from BombermanClone.util.SpriteLoader import SpriteLoader
 
 
 class PowerUpHealth(PowerUp):
@@ -12,3 +12,6 @@ class PowerUpHealth(PowerUp):
 
     def picked_up(self, bomber):
         bomber.lives +=1
+
+    def whoImServer(self):
+        return "poweruphealth"

@@ -3,7 +3,9 @@ import pickle
 from GameLoop import GameLoop
 from MenuLoop import MenuLoop
 from client.GameClient import GameClient
+from client.SimpleClient import SimpleClient
 from model.game.GameCreator import GameCreator
+from BombermanClone.clientGameDisplay.GameDisplayCreator import GameDisplayCreator
 
 STATE_MENU = 0
 STATE_GAME = 1
@@ -16,7 +18,7 @@ class MainLoop:
         self.state = STATE_MENU
         self.screen = screen
         self.isRunning = True
-        self.connection = GameClient("localhost", 8888)
+        self.connection = SimpleClient("localhost", 8888)
         self.menuloop = MenuLoop(screen, self.connection)
         self.gameloop = GameLoop(screen, self.connection)
         self.menuloop.listenForMessages(self.handleMessage)
@@ -43,27 +45,43 @@ class MainLoop:
         pygame.quit()
 
     # TODO :change the "ID" to be numbers not string
+    # def handleMessage(self, message):
+    #     id = message["id"]
+    #     if id == "HOST GAME":
+    #         self.connection.client_socket.sendall(pickle.dumps(message))
+    #         while True:
+    #             if(self.connection.lastMessage != []):
+    #                 break
+    #         print(self.connection.lastMessage)
+    #         mapName = self.connection.lastMessage.pop(0)["mapName"]
+    #         game = GameCreator.createGameUsingMapFile(mapName, 2)
+    #         self.startGame(game)
+    #     elif id == "JOIN GAME":
+    #         self.connection.client_socket.sendall(pickle.dumps(message))
+    #         while True:
+    #             if (self.connection.lastMessage != []):
+    #                 break
+    #         print(self.connection.lastMessage)
+    #         mapName = self.connection.lastMessage.pop(0)["mapName"]
+    #         game = GameCreator.createGameUsingMapFile(mapName, 2)
+    #         self.startGame(game)
+
+
+    #TODO change completly when the menu interface changes
     def handleMessage(self, message):
         id = message["id"]
         if id == "HOST GAME":
-            self.connection.client_socket.sendall(pickle.dumps(message))
+            self.connection.send_message("HOST_LOBBY")
             while True:
-                if(self.connection.lastMessage != []):
-                    break
-            print(self.connection.lastMessage)
-            mapName = self.connection.lastMessage.pop(0)["mapName"]
-            game = GameCreator.createGameUsingMapFile(mapName, 2)
+                     if(self.connection.lastMessage != []):
+                         break
+            game = GameDisplayCreator.createGameUsingMapFile("map1")
             self.startGame(game)
         elif id == "JOIN GAME":
-            self.connection.client_socket.sendall(pickle.dumps(message))
-            while True:
-                if (self.connection.lastMessage != []):
-                    break
-            print(self.connection.lastMessage)
-            mapName = self.connection.lastMessage.pop(0)["mapName"]
-            game = GameCreator.createGameUsingMapFile(mapName, 2)
+            self.connection.send_message("JOIN_LOBBY:1")
+            self.connection.send_message("START_GAME")
+            game =GameDisplayCreator.createGameUsingMapFile("map1")
             self.startGame(game)
-
     def startGame(self, game):
         self.state = STATE_GAME
         self.gameloop.setGame(game)

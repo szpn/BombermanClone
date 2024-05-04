@@ -1,4 +1,4 @@
-from model.Bomber import Bomber
+from BombermanClone.model.Bomber import Bomber
 
 
 class Map:

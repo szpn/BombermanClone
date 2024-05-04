@@ -9,6 +9,12 @@ class MenuLoop:
         self.screen_rect = screen.get_rect()
         self.manager = pygame_gui.UIManager((800, 800))
         self.messageHandler = None
+        # self.joinGamePanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
+        #                                                      manager=self.manager)
+        #
+        #
+        # self.joinGamePanel.hide()
+
         self.hostGamePanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                              manager=self.manager)
 

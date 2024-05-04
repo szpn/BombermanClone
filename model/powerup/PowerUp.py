@@ -1,6 +1,6 @@
 import pygame
 
-from util.SpriteLoader import SpriteLoader
+from BombermanClone.util.SpriteLoader import SpriteLoader
 
 
 class PowerUp:
@@ -13,3 +13,6 @@ class PowerUp:
 
     def picked_up(self, bomber):
         raise NotImplementedError(f"{self.__class__.__name__} does not implement picked_up()!")
+
+    def whoImServer(self):
+        raise NotImplementedError(f"{self.__class__.__name__} does not implement whoImServer()!")

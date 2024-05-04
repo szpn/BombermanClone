@@ -1,6 +1,6 @@
-from model.map.MapTile import MapTile
-from util.SpriteLoader import SpriteLoader
-from model.map.MapElement import MapElement
+from BombermanClone.model.map.MapTile import MapTile
+from BombermanClone.util.SpriteLoader import SpriteLoader
+from BombermanClone.model.map.MapElement import MapElement
 
 class Wall(MapTile):
     def __init__(self, x, y):

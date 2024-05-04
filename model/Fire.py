@@ -1,6 +1,6 @@
 import pygame
 
-from util.SpriteLoader import SpriteLoader
+from BombermanClone.util.SpriteLoader import SpriteLoader
 
 class Fire:
     def __init__(self,position):

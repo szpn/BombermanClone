@@ -1,4 +1,4 @@
-from server.Lobby import Lobby
+from Lobby import Lobby
 
 
 class LobbyManager:
