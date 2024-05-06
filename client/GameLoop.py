@@ -25,3 +25,5 @@ class GameLoop:
             }
             self.connection.send_message(response)
             self.keyHandler.actionHandled()
+        elif message['id'] == "END_STATE":
+            print(message)
