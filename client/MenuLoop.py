@@ -3,7 +3,7 @@ import pygame_gui
 
 
 class MenuLoop:
-    def __init__(self, screen,connection):
+    def __init__(self, screen, connection):
         self.screen = screen
         self.connection = connection
         self.screen_rect = screen.get_rect()
@@ -15,8 +15,6 @@ class MenuLoop:
         #
         # self.joinGamePanel.hide()
 
-
-
         self.mainMenuPanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                          manager=self.manager)
 
@@ -26,15 +24,14 @@ class MenuLoop:
                                                       container=self.mainMenuPanel)
 
         self.hostGameButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 200), (200, 100)),
-                                                            text='Host game',
-                                                            manager=self.manager,
-                                                            container=self.mainMenuPanel)
+                                                           text='Host game',
+                                                           manager=self.manager,
+                                                           container=self.mainMenuPanel)
 
         self.joinGameButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 300), (200, 100)),
                                                            text='Join game',
                                                            manager=self.manager,
                                                            container=self.mainMenuPanel)
-
 
         self.lobbyPanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                       manager=self.manager)
@@ -61,17 +58,35 @@ class MenuLoop:
 
         self.lobbyPanel.hide()
 
-
-
-
+        self.lobbyList = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
+                                                     manager=self.manager)
+        self.lobbyList.hide()
+        self.lobbyListButton = []
+        self.lobbyListRoomId = []
 
     def tick(self):
         self.screen.fill((68, 85, 90))
         self.manager.draw_ui(self.screen)
 
-
     def setInLobby(self, lobbyData):
         self.lobbyPanel.show()
+
+    def showLobbies(self, lobbies):
+        self.lobbyListButton.clear()
+        self.lobbyListRoomId.clear()
+        counter = 1
+        for lobby in lobbies:
+            counter += 1
+            if lobby["lobby_state"] == "WAITING":
+                button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 100 + counter * 50), (100, 50)),
+                                                      text=f'lobby {lobby["lobby_ID"]}',
+                                                      manager=self.manager,
+                                                      container=self.lobbyList)
+                self.lobbyListRoomId.append(lobby["lobby_ID"])
+                self.lobbyListButton.append(button)
+
+        print(lobbies)
+        self.lobbyList.show()
 
     def handleMenuEvents(self, event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
@@ -80,7 +95,7 @@ class MenuLoop:
                 return
 
             if event.ui_element == self.joinGameButton:
-                data = {"id": "JOIN_LOBBY", "lobby_id": 1}
+                data = {"id": "LIST_LOBBY", "lobby_id": 1}
                 self.messageHandler(data)
                 self.mainMenuPanel.hide()
 
@@ -104,6 +119,11 @@ class MenuLoop:
             if event.ui_element == self.startGameButton:
                 data = {"id": "START_GAME"}
                 self.messageHandler(data)
+
+            if event.ui_element in self.lobbyListButton:
+                data = {"id": "JOIN_LOBBY", "lobby_id": self.lobbyListRoomId[self.lobbyListButton.index(event.ui_element)]}
+                self.messageHandler(data)
+                self.lobbyList.hide()
 
 
     def listenForMessages(self, messageHandler):

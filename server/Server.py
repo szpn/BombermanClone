@@ -39,7 +39,7 @@ class Server:
 
         if message['id'] == 'LIST_LOBBY':
             lobbies = self.lobby_manager.getLobbies()
-            client_thread.sendData({"LOBBIES": lobbies})
+            client_thread.sendData({"id": 'BEFORE_LOBBY_STATE',"LOBBIES": lobbies})
 
 
     def broadcast_data(self, data):

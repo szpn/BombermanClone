@@ -41,7 +41,7 @@ class GameRender:
         mapSize = len(mapData)
         for i in range(mapSize):
             for j in range(mapSize):
-                tile = mapData[i][j]
+                tile = mapData[j][i]
                 image, rect = self.createImageAndRect(i, j, self.tileSpriteNames[tile])
                 scaled_image, scaled_rect = self.scaleImageAndRect(image, rect)
                 self.screen.blit(scaled_image, scaled_rect)

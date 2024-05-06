@@ -45,6 +45,9 @@ class MainLoop:
 
     def handleServerMessage(self, message):
         print(message)
+        if message["id"] == "BEFORE_LOBBY_STATE":
+            self.menuloop.showLobbies(message["LOBBIES"])
+
         if message["id"] == "LOBBY_STATE":
             self.menuloop.setInLobby(message["data"])
 
@@ -61,6 +64,8 @@ class MainLoop:
         elif id == "SELECT_MAP":
             self.connection.send_message(message)
         elif id == "JOIN_LOBBY":
+            self.connection.send_message(message)
+        elif id == "LIST_LOBBY":
             self.connection.send_message(message)
         elif id == "START_GAME":
             self.connection.send_message(message)
