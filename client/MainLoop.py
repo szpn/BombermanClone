@@ -52,7 +52,6 @@ class MainLoop:
             self.menuloop.setInLobby(message["data"])
 
         if message["id"] == "GAME_STARTED":
-
             self.state = STATE_GAME
             self.connection.listenForMessages(self.gameloop.handleServerMessage)
 
