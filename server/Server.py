@@ -29,14 +29,15 @@ class Server:
 
     def handleClientMessage(self, client_thread, message):
         print(f"[SERVER] {message}")
-        if message.startswith("HOST_LOBBY"):
+
+        if message['id'] == 'HOST_LOBBY':
             self.lobby_manager.hostLobby(client_thread)
 
-        if message.startswith("JOIN_LOBBY"):
-            lobby_id = int(message.split(":")[1])
+        if message['id'] == 'JOIN_LOBBY':
+            lobby_id = message['lobby_id']
             self.lobby_manager.joinLobby(lobby_id, client_thread)
 
-        if message.startswith("LIST_LOBBY"):
+        if message['id'] == 'LIST_LOBBY':
             lobbies = self.lobby_manager.getLobbies()
             client_thread.sendData({"LOBBIES": lobbies})
 

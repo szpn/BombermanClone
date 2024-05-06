@@ -1,6 +1,6 @@
-from BombermanClone.model.map.MapTile import MapTile
-from BombermanClone.util.SpriteLoader import SpriteLoader
-from BombermanClone.model.map.MapElement import MapElement
+from server.model.map.MapTile import MapTile
+from util.SpriteLoader import SpriteLoader
+from server.model.map.MapElement import MapElement
 
 class WallDestructable(MapTile):
     def __init__(self, x, y):

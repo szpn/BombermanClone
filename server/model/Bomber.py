@@ -1,6 +1,6 @@
 import pygame
 
-from BombermanClone.util.SpriteLoader import SpriteLoader
+from util.SpriteLoader import SpriteLoader
 
 
 class Bomber:
@@ -9,8 +9,7 @@ class Bomber:
         self.lives = lives
         self.x = position[0]
         self.y = position[1]
-        self.rect = pygame.Rect(position[0] * 64, position[1] * 64, 64, 64)
-        self.sprite = SpriteLoader.loadSprite("bomber")
+        self.spriteName = 'bomber'
 
         self.lastMoveTick = 0
         self.ticksNeededToMove = 20
@@ -27,7 +26,6 @@ class Bomber:
         if board.getObjectAt(dir_x + self.x, dir_y + self.y).isEmpty():
             self.x += dir_x
             self.y += dir_y
-            self.rect.move_ip(dir_x * 64, dir_y * 64)
             if firesCord[self.x][self.y] > 0:
                 self.bomberDmg()
             return True
@@ -43,3 +41,12 @@ class Bomber:
 
     def whoImString(self):
         return "Bomberman"
+
+    def serialize(self):
+        out = {
+            "lives": self.lives,
+            "x": self.x,
+            "y": self.y,
+            "sprite_name": self.spriteName
+        }
+        return out

@@ -7,7 +7,7 @@ class SimpleClient:
         self.host = host
         self.port = port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.lastMessage = None
+        self.message_listener = None
 
     def connect(self):
         self.client_socket.connect((self.host, self.port))
@@ -20,6 +20,9 @@ class SimpleClient:
         self.client_socket.close()
         self.receive_thread.join()
 
+    def listenForMessages(self, listener):
+        self.message_listener = listener
+
     def receive_messages(self):
         while True:
             try:
@@ -29,19 +32,22 @@ class SimpleClient:
                     break
 
                 message = pickle.loads(data)
-                print(f"Received message: {message}")
-                self.lastMessage = message
+                if self.message_listener:
+                    self.message_listener(message)
+                else:
+                    print(f"Received unhandled message: {message}")
+
+
             except socket.error as e:
                 print(f"Error during data retrieval: {e}")
                 return
 
+            except pickle.UnpicklingError as e:
+                print(f"Error unpickling message: {e}")
+
 
     def send_message(self, message):
         try:
-            if message == "HOSTTEST":
-                self.client_socket.sendall(pickle.dumps({"id": "HOST GAME", "mapName" : "maptest1"}))
-            elif message == "JOINTEST":
-                self.client_socket.sendall(pickle.dumps({"id": "JOIN GAME", "mapName" : "maptest1"}))
             self.client_socket.sendall(pickle.dumps(message))
         except Exception as e:
             print(f"Error: {e}")

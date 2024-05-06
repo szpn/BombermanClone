@@ -1,22 +1,21 @@
-from BombermanClone.model.Bomber import Bomber
-from BombermanClone.model.Bomb import Bomb
-from BombermanClone.model.powerup.PowerUpCreator import PowerUpCreator
-from BombermanClone.util.RandomEmptyPosition import RandomEmptyPosition
-from BombermanClone.model.map.MapElement import MapElement
-from BombermanClone.model.map.MapTile import MapTile
-from BombermanClone.model.Fire import Fire
+from server.model.Bomber import Bomber
+from server.model.Bomb import Bomb
+from server.model.powerup.PowerUpCreator import PowerUpCreator
+from util.RandomEmptyPosition import RandomEmptyPosition
+from server.model.map.MapElement import MapElement
+from server.model.map.MapTile import MapTile
+from server.model.Fire import Fire
 
 
 class Game:
     def __init__(self, map):
         self.map = map
-        self.bombers = [] #toSend
+        self.bombers = []
         self.bombs = []
-        self.powerups = [] #toSend
+        self.powerups = []
         self.fires = []
-        self.firesCord = [[0 for _ in range(map.size)] for _ in range(map.size)] #ok #toSend
-        self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)] #ok #toSend
-        self.tileCord = [[0 for _ in range(map.size)] for _ in range(map.size)] #ok #toSend
+        self.firesCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
+        self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
         self.spawnPowerUp()
         self.currentTick = 0
 
@@ -59,21 +58,9 @@ class Game:
 
     def addBombers(self, count):
         for i in range(count):
-            if i == 0:
-                self.bombers.append(Bomber(self.map.spawnPoints[0]))
-                # self.bombersCord[self.map.spawnPoints[0][0]][self.map.spawnPoints[0][1]] = 1
-            elif i == 1:
-                self.bombers.append(Bomber(self.map.spawnPoints[1]))
-                # self.bombersCord[self.map.spawnPoints[1][0]][self.map.spawnPoints[1][1]] = 1
-    def addMapCord(self,map):
-        for i in range(map.size):
-            for j in range(map.size):
-                if self.map.getObjectAt(i, j).whoImMap() == MapElement.WallDestructable:
-                    self.tileCord[i][j] = "wall_destructable"
-                elif self.map.getObjectAt(i, j).whoImMap() == MapElement.Wall:
-                    self.tileCord[i][j] = "wall"
-                elif self.map.getObjectAt(i, j).whoImMap() == MapElement.Maptile:
-                    self.tileCord[i][j] = "tile"
+            self.bombers.append(Bomber(self.map.spawnPoints[i]))
+
+
 
     def placeBomb(self, bomber):
         if bomber.bombCounter < bomber.bombLimit and self.bombCord[bomber.x][bomber.y] == 0:
@@ -110,7 +97,6 @@ class Game:
     def bombDestroyOrNot(self, mapElem, x, y):
         if mapElem == MapElement.WallDestructable:
             self.map.map[x][y] = MapTile(x, y)
-            self.tileCord[x][y] = "MapTile"
             self.fires.append(Fire((x, y)))
             self.firesCord[x][y] += 1
             return False
@@ -124,3 +110,13 @@ class Game:
             return True
 
         return False
+
+    def serialize(self):
+        out = {
+            "map": self.map.serialize(),
+            "bombers": [bomber.serialize() for bomber in self.bombers],
+            "powerups": [powerup.serialize() for powerup in self.powerups],
+            "bombs": [bomb.serialize() for bomb in self.bombs],
+            "fires": [fire.serialize() for fire in self.fires]
+        }
+        return out

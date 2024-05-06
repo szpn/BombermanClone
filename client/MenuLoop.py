@@ -15,25 +15,7 @@ class MenuLoop:
         #
         # self.joinGamePanel.hide()
 
-        self.hostGamePanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
-                                                             manager=self.manager)
 
-        self.map1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                                 text='Map 1',
-                                                 manager=self.manager,
-                                                 container=self.hostGamePanel)
-
-        self.map2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 325), (100, 50)),
-                                                 text='Map 2',
-                                                 manager=self.manager,
-                                                 container=self.hostGamePanel)
-
-        self.map3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 375), (100, 50)),
-                                                 text='Map 3',
-                                                 manager=self.manager,
-                                                 container=self.hostGamePanel)
-
-        self.hostGamePanel.hide()
 
         self.mainMenuPanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                          manager=self.manager)
@@ -54,10 +36,42 @@ class MenuLoop:
                                                            container=self.mainMenuPanel)
 
 
+        self.lobbyPanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
+                                                      manager=self.manager)
+
+        self.map1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+                                                 text='Map 1',
+                                                 manager=self.manager,
+                                                 container=self.lobbyPanel)
+
+        self.map2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 325), (100, 50)),
+                                                 text='Map 2',
+                                                 manager=self.manager,
+                                                 container=self.lobbyPanel)
+
+        self.map3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 375), (100, 50)),
+                                                 text='Map 3',
+                                                 manager=self.manager,
+                                                 container=self.lobbyPanel)
+
+        self.startGameButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 600), (200, 100)),
+                                                            text='Start game',
+                                                            manager=self.manager,
+                                                            container=self.lobbyPanel)
+
+        self.lobbyPanel.hide()
+
+
+
+
 
     def tick(self):
         self.screen.fill((68, 85, 90))
         self.manager.draw_ui(self.screen)
+
+
+    def setInLobby(self, lobbyData):
+        self.lobbyPanel.show()
 
     def handleMenuEvents(self, event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
@@ -66,28 +80,31 @@ class MenuLoop:
                 return
 
             if event.ui_element == self.joinGameButton:
-                data = {"id": "JOIN GAME"}
+                data = {"id": "JOIN_LOBBY", "lobby_id": 1}
                 self.messageHandler(data)
                 self.mainMenuPanel.hide()
 
             if event.ui_element == self.hostGameButton:
+                data = {"id": "HOST_LOBBY"}
+                self.messageHandler(data)
                 self.mainMenuPanel.hide()
-                self.hostGamePanel.show()
 
             if event.ui_element == self.map1:
-                data = {"id": "HOST GAME", "mapName": "map1"}
+                data = {"id": "SELECT_MAP", "map_name": "map1"}
                 self.messageHandler(data)
-                self.hostGamePanel.hide()
 
             if event.ui_element == self.map2:
-                data = {"id": "HOST GAME", "mapName": "map2"}
+                data = {"id": "SELECT_MAP", "map_name": "map2"}
                 self.messageHandler(data)
-                self.hostGamePanel.hide()
 
             if event.ui_element == self.map3:
-                data = {"id": "HOST GAME", "mapName": "map3"}
+                data = {"id": "SELECT_MAP", "map_name": "map3"}
                 self.messageHandler(data)
-                self.hostGamePanel.hide()
+
+            if event.ui_element == self.startGameButton:
+                data = {"id": "START_GAME"}
+                self.messageHandler(data)
+
 
     def listenForMessages(self, messageHandler):
         self.messageHandler = messageHandler

@@ -1,7 +1,7 @@
 import pygame
 
-from BombermanClone.util.SpriteLoader import SpriteLoader
-from BombermanClone.model.map.MapElement import MapElement
+from util.SpriteLoader import SpriteLoader
+from server.model.map.MapElement import MapElement
 
 class MapTile:
     def __init__(self,x,y):

@@ -1,5 +1,5 @@
-from BombermanClone.model.game.Game import Game
-from BombermanClone.util.MapLoader import MapLoader
+from server.model.game.Game import Game
+from util.MapLoader import MapLoader
 
 
 class GameCreator:
@@ -11,5 +11,4 @@ class GameCreator:
         gameMap = MapLoader.fromFile(mapName)
         game = Game(gameMap)
         game.addBombers(bomberCount)
-        game.addMapCord(game.map)
         return game

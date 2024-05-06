@@ -1,14 +1,11 @@
-import pygame
-
-from BombermanClone.model.powerup.PowerUp import PowerUp
-from BombermanClone.util.SpriteLoader import SpriteLoader
+from server.model.powerup.PowerUp import PowerUp
 
 
 class PowerUpSpeed(PowerUp):
     def __init__(self, position):
         super().__init__(position)
 
-        self.sprite = SpriteLoader.loadSprite("powerupspeed")
+        self.spriteName = 'poweruphealth'
 
     def picked_up(self, bomber):
         bomber.ticksNeededToMove -= 1

@@ -1,3 +1,4 @@
+import socket
 from threading import Thread
 import pickle
 
@@ -14,9 +15,9 @@ class ClientConnectionThread(Thread):
             try:
                 self.recieveData()
 
-            except Exception as e:
-                print(f"Error: {e}")
-                break
+            except socket.error as e:
+                print(f"ClientConnectionThread recieve error: {e}")
+
 
     def recieveData(self):
         data = self.client_socket.recv(1024)
@@ -29,4 +30,4 @@ class ClientConnectionThread(Thread):
             message = pickle.dumps(data)
             self.client_socket.sendall(message)
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"ClientConnectionThread sendData Error: {e}")

@@ -1,8 +1,8 @@
 import os
-from BombermanClone.model.map.Map import Map
-from BombermanClone.model.map.MapTile import MapTile
-from BombermanClone.model.map.Wall import Wall
-from BombermanClone.model.map.WallDestructable import WallDestructable
+from server.model.map.Map import Map
+from server.model.map.MapTile import MapTile
+from server.model.map.Wall import Wall
+from server.model.map.WallDestructable import WallDestructable
 
 
 class MapLoader():

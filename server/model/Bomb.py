@@ -1,0 +1,21 @@
+import pygame
+
+from util.SpriteLoader import SpriteLoader
+
+class Bomb:
+    def __init__(self,position,power,bomber):
+        self.x = position[0]
+        self.y = position[1]
+        self.power = power
+        self.fuse = 250
+        self.spriteName = 'bomb'
+        self.bomber = bomber
+
+    def serialize(self):
+        out = {
+            "x": self.x,
+            "y": self.y,
+            "sprite_name": self.spriteName
+        }
+        return out
+
