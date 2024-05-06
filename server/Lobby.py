@@ -48,7 +48,11 @@ class Lobby:
 
 
         elif self.lobbyState == "IN_GAME":
+
+            actingPlayer = self.players.index(client_thread)
+            # print(f"[LOBBY(IN-GAME) {self.lobbyID}] {message} {actingPlayer}")
             self.gameHandlerThread.handleClientGameMessage(message, playerID)
+
 
     def handleHostCommand(self, message):
         if message['id'] == "SELECT_MAP":

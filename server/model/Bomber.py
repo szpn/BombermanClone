@@ -24,7 +24,7 @@ class Bomber:
         # TODO tu trzeba będize jakiś validator dowalić ale kolizji póki co nie ogarniam i no bez mapy też cięzko
         dir_x = direction.value[0]
         dir_y = direction.value[1]
-        if board.getObjectAt(dir_x + self.x, dir_y + self.y).isEmpty():
+        if self.lives > 0 and board.getObjectAt(dir_x + self.x, dir_y + self.y).isEmpty():
             self.x += dir_x
             self.y += dir_y
             if firesCord[self.x][self.y] > 0:

@@ -1,6 +1,7 @@
 import pygame
 from GameLoop import GameLoop
 from MenuLoop import MenuLoop
+from EndLoop import EndLoop
 from client.SimpleClient import SimpleClient
 
 STATE_MENU = 0
@@ -18,8 +19,10 @@ class MainLoop:
         self.connection.listenForMessages(self.handleServerMessage)
 
         self.menuloop = MenuLoop(screen, self.connection)
-        self.gameloop = GameLoop(screen, self.connection)
+        self.gameloop = GameLoop(screen, self.connection,self)
+        self.endloop = EndLoop(screen, self.connection)
         self.menuloop.listenForMessages(self.handleUIMessage)
+        self.leaderBoard = []
 
     def run(self):
         clock = pygame.time.Clock()
@@ -36,6 +39,10 @@ class MainLoop:
 
             if self.state == STATE_GAME:
                 self.gameloop.tick()
+
+            if self.state == STATE_END:
+                self.endloop.tick()
+                self.endloop.manager.update(time_delta)
 
             self.handleEvents()
             pygame.display.update()

@@ -11,6 +11,8 @@ class Game:
     def __init__(self, map):
         self.map = map
         self.bombers = []
+        self.aliveBombers = []
+        self.bomberScore = []
         self.bombs = []
         self.powerups = []
         self.fires = []
@@ -18,12 +20,31 @@ class Game:
         self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
         self.spawnPowerUp()
         self.currentTick = 0
+        self.isGame = True
 
     def tick(self):
         self.tickBombs()
         self.pickupPowerUps()
         self.tickFire()
         self.currentTick += 1
+        self.killBombers()
+        self.gameEnd()
+
+
+    def killBombers(self):
+        for bomber in self.aliveBombers:
+            if bomber.lives <= 0:
+                self.bomberScore.append([self.bombers.index(bomber),self.currentTick])
+                self.aliveBombers.remove(bomber)
+    def gameEnd(self):
+        print(self.aliveBombers)
+        if len(self.aliveBombers) <= 1:
+            for bomber in self.aliveBombers:
+                self.bomberScore.append([self.bombers.index(bomber), self.currentTick+1000])
+                self.aliveBombers.remove(bomber)
+            self.isGame = False
+            print("to jest już koniec nie ma już nic")
+
 
     def tickBombs(self):
         for bomb in self.bombs:
@@ -51,7 +72,7 @@ class Game:
         if bomber not in self.bombers:
             raise ValueError("The provided bomber is not in the game!")
 
-        if bomber.moveAvailable(self.currentTick):
+        if bomber.moveAvailable(self.currentTick) and bomber in self.aliveBombers:
             bomber.move(direction, self.map, self.firesCord)
             bomber.lastMoveTick = self.currentTick
 
@@ -60,6 +81,8 @@ class Game:
         for i in range(count):
             bomber = Bomber(self.map.spawnPoints[i])
             self.bombers.append(bomber)
+            self.aliveBombers.append(bomber)
+
 
     def applySkins(self, skinsDict):
         for i in range(len(self.bombers)):
