@@ -15,6 +15,8 @@ class MenuLoop:
         #
         # self.joinGamePanel.hide()
 
+        self.playerType = "NONE"
+
         self.mainMenuPanel = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                          manager=self.manager)
 
@@ -64,12 +66,22 @@ class MenuLoop:
         self.lobbyListButton = []
         self.lobbyListRoomId = []
 
+        self.lobbyJoin = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
+                                                      manager=self.manager)
+        self.exitButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 50), (100, 50)),
+                                                            text='EXIT',
+                                                            manager=self.manager,
+                                                            container=self.lobbyJoin)
+        self.lobbyJoin.hide()
     def tick(self):
         self.screen.fill((68, 85, 90))
         self.manager.draw_ui(self.screen)
 
     def setInLobby(self, lobbyData):
-        self.lobbyPanel.show()
+        if self.playerType == "HOST":
+            self.lobbyPanel.show()
+
+
 
     def showLobbies(self, lobbies):
         self.lobbyListButton.clear()
@@ -98,9 +110,11 @@ class MenuLoop:
                 data = {"id": "LIST_LOBBY", "lobby_id": 1}
                 self.messageHandler(data)
                 self.mainMenuPanel.hide()
+                self.lobbyJoin.show()
 
             if event.ui_element == self.hostGameButton:
                 data = {"id": "HOST_LOBBY"}
+                self.playerType = "HOST"
                 self.messageHandler(data)
                 self.mainMenuPanel.hide()
 
@@ -121,6 +135,7 @@ class MenuLoop:
                 self.messageHandler(data)
 
             if event.ui_element in self.lobbyListButton:
+                self.playerType = "GUEST"
                 data = {"id": "JOIN_LOBBY", "lobby_id": self.lobbyListRoomId[self.lobbyListButton.index(event.ui_element)]}
                 self.messageHandler(data)
                 self.lobbyList.hide()
