@@ -122,9 +122,19 @@ class MenuLoop:
         ### LOBBY SELECTION
         ###
 
-        self.lobbyList = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
+        self.lobbySelection = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
                                                      manager=self.manager)
-        self.lobbyList.hide()
+
+        self.lobbySelectionLabel = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((0, 25), (800, 75)),
+                                                               text="Available lobbies:",
+                                                               manager=self.manager,
+                                                               container=self.lobbySelection)
+
+        self.availableLobbies = pygame_gui.elements.UIPanel(relative_rect=pygame.Rect((100, 100), (600, 550)),
+                                                             manager=self.manager,
+                                                             container=self.lobbySelection)
+
+        self.lobbySelection.hide()
         self.lobbyListButton = []
         self.lobbyListRoomId = []
 
@@ -147,19 +157,23 @@ class MenuLoop:
     def showLobbies(self, lobbies):
         self.lobbyListButton.clear()
         self.lobbyListRoomId.clear()
-        counter = 1
+        counter = 0
         for lobby in lobbies:
-            counter += 1
             if lobby["lobby_state"] == "WAITING":
-                button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 100 + counter * 50), (100, 50)),
-                                                      text=f'lobby {lobby["lobby_ID"]}',
+                infoLabel = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((0, counter * 50), (500, 50)),
+                                                        text=f'ID: {lobby["lobby_ID"]} state: {lobby["lobby_state"]}, players: {lobby["players"]}, selected map: {lobby["selected_map"]}',
+                                                        manager=self.manager,
+                                                        container=self.availableLobbies)
+                joinButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((500, counter * 50), (100, 50)),
+                                                      text=f'JOIN',
                                                       manager=self.manager,
-                                                      container=self.lobbyList)
-                self.lobbyListRoomId.append(lobby["lobby_ID"])
-                self.lobbyListButton.append(button)
+                                                      container=self.availableLobbies)
 
+                self.lobbyListRoomId.append(lobby["lobby_ID"])
+                self.lobbyListButton.append(joinButton)
+                counter +=1
         print(lobbies)
-        self.lobbyList.show()
+        self.lobbySelection.show()
 
     def handleMenuEvents(self, event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:

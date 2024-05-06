@@ -2,7 +2,7 @@ import socket
 import pickle
 from threading import Thread
 
-class SimpleClient:
+class ServerConnection:
     def __init__(self, host, port):
         self.host = host
         self.port = port
@@ -54,7 +54,7 @@ class SimpleClient:
 
 
 if __name__ == "__main__":
-    client = SimpleClient("localhost", 8888)
+    client = ServerConnection("localhost", 8888)
     client.connect()
 
     try:

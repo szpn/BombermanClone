@@ -19,5 +19,6 @@ class LobbyManager:
             lobby = self.lobbies[lobby_id]
             lobby.addPlayer(player)
 
+
     def getLobbies(self):
-        return [lobby.serialize() for lobby in self.lobbies.values()]
+        return [lobby.serialize() for lobby in self.lobbies.values() if lobby.host.is_alive]

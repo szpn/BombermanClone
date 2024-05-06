@@ -11,10 +11,10 @@ class GameHandlerThread(Thread):
         super().__init__()
         self.lobby = lobby
         self.game = None
-        self.TPS = 60
+        self.TPS = 120
 
         self.selectedMap = 'map1'
-        self.selectedSkins = defaultdict(lambda: ["bomberBlue", "bombExotic"])
+        self.selectedSkins = defaultdict(lambda: ["bomber", "bomb"])
 
 
     def setup(self):

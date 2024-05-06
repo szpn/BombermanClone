@@ -7,7 +7,7 @@ from server.model.powerup.PowerUpHealth import PowerUpHealth
 
 
 class PowerUpCreator:
-    available_powerups = [PowerUpHealth, PowerUpBombCount, PowerUpBombPower, PowerUpSpeed]
+    available_powerups = [PowerUpBombCount, PowerUpBombPower, PowerUpSpeed]
 
 
     @staticmethod
