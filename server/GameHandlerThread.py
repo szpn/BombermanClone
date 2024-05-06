@@ -1,22 +1,28 @@
 from threading import Thread
 from time import sleep
+from collections import defaultdict
 
 from server.model.Directions import Directions
 from server.model.game.GameCreator import GameCreator
 
 
 class GameHandlerThread(Thread):
-    def __init__(self, lobby, mapName='map1'):
+    def __init__(self, lobby):
         super().__init__()
         self.lobby = lobby
-        self.game = GameCreator.createGameUsingMapFile(mapName, 0)
+        self.game = None
         self.TPS = 60
 
         self.selectedMap = 'map1'
+        self.selectedSkins = defaultdict(lambda: ["bomb", "bomb"])
 
 
+    def setup(self):
+        playerCount = len(self.lobby.players)
+        self.game = GameCreator.createGameUsingMapFile(self.selectedMap, playerCount)
+        self.game.applySkins(self.selectedSkins)
+        self.lobby.broadcastData({"id": "GAME_SETUP"})
     def run(self):
-        self.game = GameCreator.createGameUsingMapFile(self.selectedMap, len(self.lobby.players))
         self.lobby.broadcastData({"id": "GAME_STARTED"})
         while True:
             sleep(1/self.TPS)

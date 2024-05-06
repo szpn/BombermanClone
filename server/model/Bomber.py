@@ -10,6 +10,7 @@ class Bomber:
         self.x = position[0]
         self.y = position[1]
         self.spriteName = 'bomber'
+        self.bombSpriteName = 'bomb'
 
         self.lastMoveTick = 0
         self.ticksNeededToMove = 20
@@ -38,6 +39,10 @@ class Bomber:
         self.lives -= 1
         if self.lives == 0:
             print("koniec gry")
+
+    def applySkin(self, skin):
+        self.spriteName = skin[0]
+        self.bombSpriteName = skin[1]
 
     def whoImString(self):
         return "Bomberman"
