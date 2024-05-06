@@ -58,6 +58,11 @@ class MenuLoop:
                                                             manager=self.manager,
                                                             container=self.lobbyPanel)
 
+        self.labelHOST = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 100), (500, 100)),
+                                                     text='',
+                                                     manager=self.manager,
+                                                     container=self.lobbyPanel)
+
         self.lobbyPanel.hide()
 
         self.lobbyList = pygame_gui.elements.UIPanel(relative_rect=self.screen_rect,
@@ -72,6 +77,14 @@ class MenuLoop:
                                                             text='EXIT',
                                                             manager=self.manager,
                                                             container=self.lobbyJoin)
+
+
+        self.labelJOIN = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 100), (500, 100)),
+                                                     text='',
+                                                     manager=self.manager,
+                                                     container=self.lobbyJoin)
+
+
         self.lobbyJoin.hide()
     def tick(self):
         self.screen.fill((68, 85, 90))
@@ -79,7 +92,13 @@ class MenuLoop:
 
     def setInLobby(self, lobbyData):
         if self.playerType == "HOST":
+
+            self.labelHOST.set_text(f'numer pokoju: {lobbyData["lobby_ID"]} mapa: {lobbyData["selected_map"]}  ilosc graczy {lobbyData["players"]}')
             self.lobbyPanel.show()
+
+        if self.playerType =="GUEST":
+            self.labelJOIN.set_text(f'numer pokoju: {lobbyData["lobby_ID"]} mapa: {lobbyData["selected_map"]}  ilosc graczy {lobbyData["players"]}')
+
 
 
 
