@@ -1,11 +1,11 @@
+from collections import defaultdict
+
 from server.model.game.Game import Game
 from util.MapLoader import MapLoader
 
 
 class GameCreator:
-    def __init__(self):
-        pass
-
+    selectedSkins = defaultdict(lambda: ["bomber", "bomb"])
     @staticmethod
     def createGameUsingMapFile(mapName, bomberCount):
         gameMap = MapLoader.fromFile(mapName)

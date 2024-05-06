@@ -84,12 +84,16 @@ class Game:
             self.aliveBombers.append(bomber)
 
 
+    def applySkins(self, skinsDict):
+        for i in range(len(self.bombers)):
+            self.bombers[i].applySkin(skinsDict[i])
 
 
     def placeBomb(self, bomber):
         if bomber.bombCounter < bomber.bombLimit and self.bombCord[bomber.x][bomber.y] == 0:
             self.bombCord[bomber.x][bomber.y] = 1
-            self.bombs.append(Bomb([bomber.x, bomber.y], bomber.bombPower, bomber))
+            bomb = Bomb([bomber.x, bomber.y], bomber)
+            self.bombs.append(bomb)
             bomber.bombCounter += 1
             #print("bomb has been planted")
 

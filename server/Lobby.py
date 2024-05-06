@@ -12,6 +12,7 @@ class Lobby:
 
     def startGame(self):
         self.lobbyState = "IN_GAME"
+        self.gameHandlerThread.setup()
         self.gameHandlerThread.start()
 
 
@@ -34,23 +35,32 @@ class Lobby:
             player.sendData(data)
 
     def handleClientMessage(self, client_thread, message):
+        playerID = self.players.index(client_thread)
+        print(f"[LOBBY({self.lobbyState}) {self.lobbyID}] {message} {playerID}")
+
         if client_thread == self.host:
             self.handleHostCommand(message)
-            self.broadcastLobbyState()
 
         if self.lobbyState == "WAITING":
-            print(f"[LOBBY {self.lobbyID}] {message}")
+            if message['id'] == "SKIN_SELECTION":
+                self.gameHandlerThread.selectedSkins[playerID][0] = message['data']['bomber']
+                self.gameHandlerThread.selectedSkins[playerID][1] = message['data']['bomb']
+
 
         elif self.lobbyState == "IN_GAME":
+
             actingPlayer = self.players.index(client_thread)
             # print(f"[LOBBY(IN-GAME) {self.lobbyID}] {message} {actingPlayer}")
-            self.gameHandlerThread.handleClientGameMessage(message, actingPlayer)
+            self.gameHandlerThread.handleClientGameMessage(message, playerID)
+
 
     def handleHostCommand(self, message):
         if message['id'] == "SELECT_MAP":
             self.gameHandlerThread.selectedMap = message['map_name']
         if message['id'] == "START_GAME":
             self.startGame()
+
+        self.broadcastLobbyState()
 
 
     def serialize(self):

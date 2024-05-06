@@ -48,6 +48,7 @@ class MainLoop:
             pygame.display.update()
 
         pygame.quit()
+        self.connection.close()
 
 
     def handleServerMessage(self, message):
@@ -56,7 +57,7 @@ class MainLoop:
             self.menuloop.showLobbies(message["LOBBIES"])
 
         if message["id"] == "LOBBY_STATE":
-            self.menuloop.setInLobby(message["data"])
+            self.menuloop.updateLobbyData(message["data"])
 
         if message["id"] == "GAME_STARTED":
             self.state = STATE_GAME
@@ -75,6 +76,8 @@ class MainLoop:
         elif id == "LIST_LOBBY":
             self.connection.send_message(message)
         elif id == "START_GAME":
+            self.connection.send_message(message)
+        elif id == "SKIN_SELECTION":
             self.connection.send_message(message)
 
 
