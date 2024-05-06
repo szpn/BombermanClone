@@ -5,10 +5,12 @@ from client.GameRender import GameRender
 
 
 class GameLoop:
-    def __init__(self, screen,connection):
+    def __init__(self, screen,connection,mainLoop):
+        self.mainLoop = mainLoop
         self.keyHandler = KeyAction()
         self.render = GameRender(screen)
         self.connection = connection
+
 
 
     def tick(self):
@@ -26,4 +28,5 @@ class GameLoop:
             self.connection.send_message(response)
             self.keyHandler.actionHandled()
         elif message['id'] == "END_STATE":
-            print(message)
+            self.mainLoop.endloop.setLeaderBoard(message['data'])
+            self.mainLoop.state = 2
