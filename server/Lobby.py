@@ -42,10 +42,10 @@ class Lobby:
             self.handleHostCommand(message)
 
         if self.lobbyState == "WAITING":
-            if message['id'] == "SELECT_BOMBER_SKIN":
-                self.gameHandlerThread.selectedSkins[playerID][0] = message['data']
-            if message['id'] == "SELECT_BOMB_SKIN":
-                self.gameHandlerThread.selectedSkins[playerID][1] = message['data']
+            if message['id'] == "SKIN_SELECTION":
+                self.gameHandlerThread.selectedSkins[playerID][0] = message['data']['bomber']
+                self.gameHandlerThread.selectedSkins[playerID][1] = message['data']['bomb']
+
 
         elif self.lobbyState == "IN_GAME":
             self.gameHandlerThread.handleClientGameMessage(message, playerID)

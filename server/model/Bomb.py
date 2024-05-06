@@ -1,7 +1,3 @@
-import pygame
-
-from util.SpriteLoader import SpriteLoader
-
 class Bomb:
     def __init__(self,position,bomber):
         self.x = position[0]

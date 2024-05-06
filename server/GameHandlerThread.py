@@ -14,7 +14,7 @@ class GameHandlerThread(Thread):
         self.TPS = 60
 
         self.selectedMap = 'map1'
-        self.selectedSkins = defaultdict(lambda: ["bomb", "bomb"])
+        self.selectedSkins = defaultdict(lambda: ["bomberBlue", "bombExotic"])
 
 
     def setup(self):

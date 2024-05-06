@@ -18,3 +18,4 @@ class SpriteLoader(object):
         sprite.image = img
         cls.loadedSprites[spriteName] = sprite
         return sprite
+
