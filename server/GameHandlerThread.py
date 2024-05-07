@@ -24,10 +24,11 @@ class GameHandlerThread(Thread):
         self.lobby.broadcastData({"id": "GAME_SETUP"})
     def run(self):
         self.lobby.broadcastData({"id": "GAME_STARTED"})
-        while True:
+        while self.game.isGame:
             sleep(1/self.TPS)
             self.game.tick()
             self.lobby.broadcastData({"id": "GAME_STATE", "data": self.game.serialize()})
+        self.lobby.broadcastData({"id":"END_STATE","data": self.game.bomberScore})
 
 
     def handleClientGameMessage(self, message, actingPlayer):
