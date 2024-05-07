@@ -212,7 +212,7 @@ class MenuLoop:
                 self.playerType = "GUEST"
                 data = {"id": "JOIN_LOBBY", "lobby_id": self.lobbyListRoomId[self.lobbyListButton.index(event.ui_element)]}
                 self.messageHandler(data)
-                self.lobbyList.hide()
+                self.lobbySelection.hide()
 
             if event.ui_element == self.nextBomberSkinButton:
                 self.selectedBomberSkin += 1
