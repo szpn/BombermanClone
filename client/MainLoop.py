@@ -1,8 +1,10 @@
 import pygame
 from GameLoop import GameLoop
 from MenuLoop import MenuLoop
+
+from client.ServerConnection import ServerConnection
 from EndLoop import EndLoop
-from client.SimpleClient import SimpleClient
+
 
 STATE_MENU = 0
 STATE_GAME = 1
@@ -15,7 +17,7 @@ class MainLoop:
         self.state = STATE_MENU
         self.screen = screen
         self.isRunning = True
-        self.connection = SimpleClient("localhost", 8888)
+        self.connection = ServerConnection("localhost", 8888)
         self.connection.listenForMessages(self.handleServerMessage)
 
         self.menuloop = MenuLoop(screen, self.connection)

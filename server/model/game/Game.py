@@ -18,14 +18,20 @@ class Game:
         self.fires = []
         self.firesCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
         self.bombCord = [[0 for _ in range(map.size)] for _ in range(map.size)]
-        self.spawnPowerUp()
+
+        self.ticksToSpawnPowerUp = 600
+
         self.currentTick = 0
+        self.lastPowerUpSpawnTick = 0
+        
         self.isGame = True
 
     def tick(self):
         self.tickBombs()
         self.pickupPowerUps()
         self.tickFire()
+        if self.shouldSpawnPowerUp():
+            self.spawnPowerUp()
         self.currentTick += 1
         self.killBombers()
         self.gameEnd()
@@ -97,10 +103,14 @@ class Game:
             bomber.bombCounter += 1
             #print("bomb has been planted")
 
+    def shouldSpawnPowerUp(self):
+        return self.currentTick - self.lastPowerUpSpawnTick >= self.ticksToSpawnPowerUp
+
     def spawnPowerUp(self):
         powerUpPosition = RandomEmptyPosition.generate(self)
         powerUp = PowerUpCreator.create_random_powerup(powerUpPosition)
         self.powerups.append(powerUp)
+        self.lastPowerUpSpawnTick = self.currentTick
 
     def bombBOOM(self, bomb):
         bomb.bomber.bombCounter -= 1
